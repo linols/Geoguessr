@@ -10,6 +10,7 @@ interface GuessMapProps {
 
 const GuessMap: React.FC<GuessMapProps> = ({ onGuess, disabled, actualLocation, guessedLocation }) => {
   const mapRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map | null>(null);
   const markerRef = useRef<google.maps.Marker | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -30,6 +31,19 @@ const GuessMap: React.FC<GuessMapProps> = ({ onGuess, disabled, actualLocation, 
       setActualMarker(null);
     }
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsExpanded(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     if (mapRef.current && !map) {
@@ -64,7 +78,6 @@ const GuessMap: React.FC<GuessMapProps> = ({ onGuess, disabled, actualLocation, 
       newMap.addListener('click', (e: google.maps.MapMouseEvent) => {
         if (disabled || !e.latLng) return;
 
-        // Supprimer l'ancien marqueur s'il existe
         if (markerRef.current) {
           markerRef.current.setMap(null);
         }
@@ -86,7 +99,6 @@ const GuessMap: React.FC<GuessMapProps> = ({ onGuess, disabled, actualLocation, 
           animation: google.maps.Animation.DROP,
         });
 
-        // Stocker le nouveau marqueur dans la référence
         markerRef.current = newMarker;
 
         onGuess({
@@ -164,11 +176,11 @@ const GuessMap: React.FC<GuessMapProps> = ({ onGuess, disabled, actualLocation, 
 
   return (
     <div 
+      ref={containerRef}
       className={`relative transition-all duration-300 ease-in-out ${
         shouldAllowExpand && isExpanded ? 'w-[600px] h-[400px]' : 'w-[300px] h-[200px]'
       }`}
       onMouseEnter={() => shouldAllowExpand && setIsExpanded(true)}
-      onMouseLeave={() => shouldAllowExpand && setIsExpanded(false)}
     >
       <div ref={mapRef} className="w-full h-full rounded-xl overflow-hidden shadow-xl" />
     </div>

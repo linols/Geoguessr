@@ -7,11 +7,8 @@ import GameHistory from './components/GameHistory';
 import { Location, GameState, getRandomLocation, HistoryScore } from './types/maps';
 import { MapPin, Compass } from 'lucide-react';
 
-const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+const GOOGLE_MAPS_API_KEY = 'AIzaSyBwjQC6fpOgmpgtalJ3NAzj6G-KO8LAS2Q';
 const TOTAL_ROUNDS = 5;
-
-console.log("Google Maps API Key:", import.meta.env.VITE_GOOGLE_MAPS_API_KEY);
-
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -94,7 +91,6 @@ function App() {
       const response = await fetch('http://localhost:5000/scores');
       const newHistory = await response.json();
       setHistory(newHistory);
-      setGameState(prev => ({ ...prev, gameStarted: false }));
     } catch (err) {
       console.error('Erreur lors de l\'envoi du score:', err);
     } finally {
@@ -115,7 +111,7 @@ function App() {
       distance,
       score: roundScore,
       totalScore: newTotalScore,
-      isGameOver: true,
+      isGameOver: true
     }));
 
     if (isLastRound) {
@@ -156,6 +152,10 @@ function App() {
     });
   }, [maps]);
 
+  const handleFinishGame = useCallback(() => {
+    setGameState(prev => ({ ...prev, gameStarted: false }));
+  }, []);
+
   if (!isLoaded) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 flex items-center justify-center">
@@ -173,7 +173,7 @@ function App() {
           history={history} 
           onStartNewGame={startNewGame}
           currentScore={gameState.totalScore}
-          isLastRound={gameState.currentRound === TOTAL_ROUNDS}
+          isLastRound={gameState.currentRound === TOTAL_ROUNDS && gameState.isGameOver}
           isLoading={isSubmittingScore}
         />
       </div>
@@ -229,7 +229,7 @@ function App() {
             <ScoreDisplay
               distance={gameState.distance!}
               score={gameState.score!}
-              onNewGame={gameState.currentRound === TOTAL_ROUNDS ? startNewGame : continueToNextRound}
+              onNewGame={gameState.currentRound === TOTAL_ROUNDS ? handleFinishGame : continueToNextRound}
               actualLocation={gameState.currentLocation}
               guessedLocation={gameState.guessedLocation!}
               isLastRound={gameState.currentRound === TOTAL_ROUNDS}
