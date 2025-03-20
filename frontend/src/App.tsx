@@ -84,7 +84,7 @@ function App() {
     const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
     
     try {
-      await fetch(`${BACKEND_URL}/scores`, {
+      await fetch(`${BACKEND_URL}/score`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
