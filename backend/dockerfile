@@ -1,0 +1,23 @@
+# Utiliser Node.js
+FROM node:18
+
+# Définir le dossier de travail
+WORKDIR /app
+
+# Copier les fichiers package.json et package-lock.json
+COPY package.json package-lock.json ./
+
+# Installer les dépendances
+RUN npm install
+
+# Copier le reste des fichiers du projet
+COPY . .
+
+# Créer le dossier pour stocker le fichier JSON
+RUN mkdir -p /app/data
+
+# Exposer le port de l'API
+EXPOSE 5000
+
+# Lancer le serveur
+CMD ["node", "server.js"]

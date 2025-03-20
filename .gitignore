@@ -34,9 +34,7 @@ docker-compose.override.yaml
 docker-compose.prod.yml
 docker-compose.prod.yaml
 .dockerignore
-**/Dockerfile
-**/docker-compose.yml
-**/docker-compose.yaml
+
 
 # === Volumes et Données Docker ===
 /var/lib/docker/volumes/
