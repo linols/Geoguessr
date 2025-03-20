@@ -1,0 +1,62 @@
+# === Node.js ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# === Environnement et Config ===
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+.env.*.local
+
+# === Build et Dépendances Frontend ===
+frontend/node_modules/
+frontend/dist/
+frontend/.turbo/
+frontend/.parcel-cache/
+frontend/.vite/
+frontend/.eslintcache
+
+# === Build et Dépendances Backend ===
+backend/node_modules/
+backend/dist/
+backend/.turbo/
+backend/.eslintcache
+
+# === Docker ===
+docker-compose.override.yml
+docker-compose.override.yaml
+docker-compose.prod.yml
+docker-compose.prod.yaml
+.dockerignore
+**/Dockerfile
+**/docker-compose.yml
+**/docker-compose.yaml
+
+# === Volumes et Données Docker ===
+/var/lib/docker/volumes/
+/var/lib/docker/containers/
+/var/lib/docker/network/
+/var/lib/docker/overlay2/
+/var/lib/docker/tmp/
+volumes/
+game_data/
+backend/data/
+
+# === IDEs et Outils de Développement ===
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# === Fichiers Système ===
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.bak
