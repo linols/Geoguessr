@@ -17,7 +17,7 @@ COPY . .
 RUN mkdir -p /app/data
 
 # Exposer le port de l'API
-EXPOSE 5000
+EXPOSE ${VITE_BACKEND_PORT}
 
 # Lancer le serveur
 CMD ["node", "server.js"]

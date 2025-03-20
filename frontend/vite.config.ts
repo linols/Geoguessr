@@ -11,6 +11,7 @@ export default defineConfig(({ mode }) => {
       exclude: ['lucide-react'],
     },
     define: {
+      'import.meta.env.VITE_BACKEND_PORT': JSON.stringify(env.VITE_BACKEND_PORT ),
       'import.meta.env.VITE_GOOGLE_MAPS_API_KEY': JSON.stringify(env.VITE_GOOGLE_MAPS_API_KEY),
     },
   };

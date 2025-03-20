@@ -7,8 +7,15 @@ import GameHistory from './components/GameHistory';
 import { Location, GameState, getRandomLocation, HistoryScore } from './types/maps';
 import { MapPin, Compass } from 'lucide-react';
 
-const GOOGLE_MAPS_API_KEY = 'AIzaSyBwjQC6fpOgmpgtalJ3NAzj6G-KO8LAS2Q';
+
+
+
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 const TOTAL_ROUNDS = 5;
+const BACKEND_PORT = import.meta.env.VITE_BACKEND_PORT;
+const BACKEND_URL = `http://localhost:${BACKEND_PORT}`;
+
+
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -41,7 +48,7 @@ function App() {
       });
     });
 
-    fetch('http://localhost:5000/scores')
+    fetch(`${BACKEND_URL}/scores`)
       .then(res => res.json())
       .then(data => setHistory(data))
       .catch(err => console.error('Erreur lors du chargement de l\'historique:', err));
@@ -77,7 +84,7 @@ function App() {
     const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
     
     try {
-      await fetch('http://localhost:5000/score', {
+      await fetch(`${BACKEND_URL}/scores`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +95,7 @@ function App() {
         })
       });
 
-      const response = await fetch('http://localhost:5000/scores');
+      const response = await fetch(`${BACKEND_URL}/scores`);
       const newHistory = await response.json();
       setHistory(newHistory);
     } catch (err) {

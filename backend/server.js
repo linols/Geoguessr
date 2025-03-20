@@ -2,9 +2,13 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+
+
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.VITE_BACKEND_PORT;
+
 app.use(cors());
 
 // Définir le chemin du fichier JSON (il sera stocké dans le volume Docker)
@@ -62,7 +66,6 @@ app.get("/scores", (req, res) => {
     }
 });
 
-// ✅ Démarrer le serveur
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });

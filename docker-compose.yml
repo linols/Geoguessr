@@ -4,21 +4,22 @@ services:
   backend:
     build: ./backend
     ports:
-      - "5000:5000"
+      - "${VITE_BACKEND_PORT}:${VITE_BACKEND_PORT}"
     volumes:
       - game_data:/app/data
     env_file:
       - .env
+    environment:
+      - VITE_BACKEND_PORT=${VITE_BACKEND_PORT}
     restart: always
 
   frontend:
     build: ./frontend
     ports:
       - "5173:5173"
-    volumes:
-      - .env:/app/.env
     environment:
       - VITE_GOOGLE_MAPS_API_KEY=${VITE_GOOGLE_MAPS_API_KEY}
+      - VITE_BACKEND_PORT=${VITE_BACKEND_PORT}
     depends_on:
       - backend
     restart: always
