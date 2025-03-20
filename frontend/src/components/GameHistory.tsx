@@ -46,7 +46,7 @@ const GameHistory: React.FC<GameHistoryProps> = ({
         <div className="bg-gradient-to-r from-indigo-600 to-purple-600 px-8 py-6">
           <h2 className="text-3xl font-bold text-white flex items-center gap-3">
             <Globe2 className="w-8 h-8" />
-            {currentScore !== null ? 'Partie terminée !' : 'GeoGuessr Clone'}
+            {currentScore !== null ? 'Bienvenue sur LinoGuessr !' : 'GeoGuessr Clone'}
           </h2>
           <p className="text-indigo-200 mt-2">Testez vos connaissances géographiques</p>
         </div>

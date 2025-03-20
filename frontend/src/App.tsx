@@ -187,7 +187,7 @@ function App() {
           <div className="flex justify-between items-center">
             <h1 className="text-4xl font-bold text-white flex items-center gap-3">
               <MapPin className="w-10 h-10 text-indigo-500" />
-              GeoGuessr Clone
+              LinoGuessr
             </h1>
             <div className="text-white">
               <span className="text-indigo-200">Round </span>
